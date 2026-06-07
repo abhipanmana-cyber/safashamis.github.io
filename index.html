@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shamis &amp; Safana – Wedding Invitation</title>
+  <meta name="description"
+    content="You are cordially invited to the wedding of Shamis & Safana on July 23, 2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── Design Tokens ── */
+    :root {
+      --maroon: #6b1a2a;
+      --maroon-dark: #4a0f1c;
+      --maroon-mid: #8b2438;
+      --maroon-light: #b85070;
+      --ivory: #faf6ef;
+      --ivory-dark: #f0e8da;
+      --ivory-mid: #e8ddd0;
+      --gold: #c8a96e;
+      --gold-light: #dfc090;
+      --gold-dark: #a07840;
+      --text-dark: #2a1018;
+      --text-mid: #5a2030
+    }
+
+    /* ── Reset ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg-dark);
+      color: var(--ivory);
+      overflow-x: hidden;
+    }
+
+    /* ── Font helpers ── */
+    .font-script {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .font-display {
+      font-family: 'Cinzel', serif;
+    }
+
+    .font-serif {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .font-body {
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* ── Noise overlay ── */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    /* ── Nav dots ── */
+    .nav-dots {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(200, 169, 110, 0.5);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+
+    .nav-dot.active,
+    .nav-dot:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      transform: scale(1.3);
+    }
+
+    /* ── Slide system ── */
+    .slide-container {
+      width: 100%;
+      overflow-y: auto;
+      height: 100vh;
+      scroll-snap-type: y mandatory;
+    }
+
+    .slide {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    /* ── Slide backgrounds ── */
+    .slide-welcome {
+      background: var(--maroon-dark);
+      background-image: radial-gradient(80% 60% at 50% 0, #8b1a2c, #0000 70%), radial-gradient(60% 40% at 50% 100%, #3a0810, #0000 70%);
+    }
+
+    .slide-invitation {
+      background: linear-gradient(160deg, #FAF6EF 0%, #F0E8D8 50%, #EAE0CC 100%);
+    }
+
+    .slide-ceremony {
+      background: radial-gradient(ellipse at center, #FFF8F0 0%, #F5EDE0 60%, #EDE3D3 100%);
+    }
+
+    .slide-countdown {
+      background: var(--maroon);
+      background-image: radial-gradient(100% 60% at 50% 0, #8b2438, #0000 60%), radial-gradient(80% 80% at 80% 100%, #4a0f1c, #0000 60%);
+    }
+
+    .slide-story {
+      background: var(--maroon-dark);
+      background-image: radial-gradient(60% 80% at 30%, #6b1a2a, #0000 60%), radial-gradient(60% 60% at 70%, #3a0810, #0000 60%);
+    }
+
+    .slide-venue {
+      background: linear-gradient(160deg, #FFF8F2 0%, #F5EAD8 50%, #EDE0CA 100%);
+    }
+
+    /* ── Corner ornament SVG ── */
+    .corner {
+      position: absolute;
+      z-index: 2;
+    }
+
+    /* ── Floating petals ── */
+    @keyframes float-petal {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: translateY(-18px) rotate(20deg);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.5;
+      }
+    }
+
+    .petal {
+      position: absolute;
+      border-radius: 50% 0 50% 0;
+      background: rgba(200, 100, 80, 0.12);
+      pointer-events: none;
+      animation: float-petal 6s ease-in-out infinite;
+    }
+
+    /* ── Fade animations ── */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .anim {
+      animation: fadeInUp 0.8s ease both;
+    }
+
+    .anim-scale {
+      animation: scaleIn 0.8s ease both;
+    }
+
+    .d1 {
+      animation-delay: 0.1s;
+    }
+
+    .d2 {
+      animation-delay: 0.2s;
+    }
+
+    .d3 {
+      animation-delay: 0.3s;
+    }
+
+    .d4 {
+      animation-delay: 0.4s;
+    }
+
+    .d5 {
+      animation-delay: 0.5s;
+    }
+
+    .d6 {
+      animation-delay: 0.6s;
+    }
+
+    .d8 {
+      animation-delay: 0.8s;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .divider-line-l {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .divider-line-r {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    /* ── Silhouette ── */
+    .silhouette-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(320px, 80vw);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .silhouette-wrap svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* ── Scroll hint ── */
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px);
+      }
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      z-index: 4;
+      animation: bounce 2s ease infinite;
+    }
+
+    /* ── Slide 1: Welcome ── */
+    .welcome-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .welcome-content .tagline {
+      font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .welcome-content h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0.25em;
+      margin-bottom: 32px;
+    }
+
+    .welcome-content .names h2 {
+      font-size: clamp(3rem, 10vw, 6.5rem);
+      color: var(--ivory);
+      line-height: 1.1;
+      font-weight: 100;
+    }
+
+    .welcome-content .amp {
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      color: var(--gold-light);
+      font-style: italic;
+      letter-spacing: 0.15em;
+      margin: 6px 0;
+      display: block;
+    }
+
+    .welcome-content .date-line {
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      letter-spacing: 0.3em;
+      color: var(--gold);
+    }
+
+    /* ── Slide 2: Invitation card ── */
+    .invitation-card {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 32px;
+      max-width: 520px;
+    }
+
+    .invitation-card .invite-text {
+      font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+      font-style: italic;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .invitation-card h2 {
+      font-size: clamp(3rem, 10vw, 6rem);
+      color: var(--maroon);
+      line-height: 1.1;
+      font-weight: 100;
+    }
+
+    .invitation-card .amp2 {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--gold-dark);
+      font-style: italic;
+      letter-spacing: 0.1em;
+      margin: 4px 0;
+      display: block;
+    }
+
+    .invitation-card .ceremony-date {
+      font-size: clamp(0.75rem, 2vw, 0.95rem);
+      letter-spacing: 0.2em;
+      color: var(--maroon);
+      margin-bottom: 8px;
+    }
+
+    .invitation-card .hijri {
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      font-style: italic;
+      color: var(--gold-dark);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Slide 3: Ceremony ── */
+    .ceremony-box {
+      background: rgba(255, 252, 248, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(200, 169, 110, 0.4);
+      padding: clamp(28px, 5vw, 56px) clamp(20px, 5vw, 52px);
+      position: relative;
+      box-shadow: 0 24px 64px rgba(106, 26, 42, 0.12);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .ceremony-box .invite-badge {
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+      letter-spacing: 0.35em;
+      color: var(--gold-dark);
+      margin-bottom: 20px;
+    }
+
+    .ceremony-box h2 {
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--maroon);
+      letter-spacing: 0.15em;
+      margin-bottom: 28px;
+    }
+
+    .ceremony-box .date-display {
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      letter-spacing: 0.2em;
+      color: var(--maroon);
+      margin-bottom: 6px;
+    }
+
+    .ceremony-box .hijri2 {
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      font-style: italic;
+      color: var(--gold-dark);
+      margin-bottom: 28px;
+    }
+
+    .time-badge {
+      background: var(--maroon);
+      padding: 14px 30px;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+
+    .time-badge span {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0.15em;
+    }
+
+    .venue-name {
+      font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+      font-weight: 500;
+      color: var(--maroon);
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .venue-sub {
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      font-style: italic;
+      color: var(--text-mid);
+    }
+
+    /* ── Slide 4: Countdown ── */
+    .countdown-wrap {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .countdown-wrap .section-tag {
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .countdown-wrap h2 {
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0.2em;
+      margin-bottom: 12px;
+    }
+
+    .countdown-wrap .subtitle {
+      font-size: clamp(0.85rem, 2vw, 1.05rem);
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 36px;
+    }
+
+    .countdown-boxes {
+      display: flex;
+      gap: clamp(12px, 3vw, 32px);
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      margin-bottom: 48px;
+    }
+
+    .countdown-unit {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 3vw, 32px);
+    }
+
+    .countdown-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(200, 169, 110, 0.3);
+      padding: clamp(14px, 3vw, 28px) clamp(10px, 2.5vw, 24px);
+      min-width: clamp(64px, 15vw, 100px);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+
+    .countdown-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200, 169, 110, 0.05) 0%, transparent 60%);
+    }
+
+    .countdown-num {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+    }
+
+    .countdown-label {
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.55rem, 1.2vw, 0.7rem);
+      letter-spacing: 0.25em;
+      color: rgba(200, 169, 110, 0.65);
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    .colon {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: var(--gold);
+      opacity: 0.6;
+      line-height: 1;
+      animation: blink 1s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 0.15;
+      }
+    }
+
+    .note-text {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      font-style: italic;
+      color: rgba(250, 246, 239, 0.82);
+      line-height: 1.8;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .celebration-msg {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--gold-light);
+      margin-top: 16px;
+    }
+
+    /* ── Slide 5: Story ── */
+    .story-wrap {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 32px;
+      max-width: 640px;
+    }
+
+    .story-wrap .section-tag {
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .story-wrap h2 {
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0.2em;
+      margin-bottom: 36px;
+    }
+
+    .story-text {
+      font-size: clamp(1rem, 2.8vw, 1.25rem);
+      font-style: italic;
+      color: rgba(250, 246, 239, 0.88);
+      line-height: 2;
+      letter-spacing: 0.01em;
+    }
+
+    .story-names {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 36px;
+    }
+
+    .story-names h3 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--gold-light);
+      font-weight: 100;
+    }
+
+    .story-amp {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .big-quote {
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(200, 169, 110, 0.07);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      font-size: clamp(8rem, 20vw, 16rem);
+    }
+
+    /* ── Slide 6: Venue ── */
+    .venue-wrap {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 560px;
+      width: 100%;
+    }
+
+    .venue-wrap .section-tag {
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+      letter-spacing: 0.4em;
+      color: var(--gold-dark);
+      margin-bottom: 16px;
+    }
+
+    .venue-wrap h2 {
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 600;
+      color: var(--maroon);
+      letter-spacing: 0.2em;
+      margin-bottom: 28px;
+    }
+
+    .venue-card {
+      background: var(--maroon);
+      padding: 28px 36px;
+      margin-bottom: 24px;
+      position: relative;
+      box-shadow: 0 20px 56px rgba(106, 26, 42, 0.22);
+    }
+
+    .venue-card .venue-title {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 500;
+      color: var(--ivory);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .venue-card .venue-city {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+
+    .venue-card .venue-dt {
+      font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      opacity: 0.85;
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid rgba(139, 36, 56, 0.5);
+      color: var(--maroon);
+      padding: 12px 28px;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .map-btn:hover {
+      background: var(--maroon);
+      color: var(--ivory);
+      border-color: var(--maroon);
+    }
+
+    .thank-you {
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      font-style: italic;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .closing-names {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      color: var(--maroon);
+      line-height: 1.2;
+      font-weight: 100;
+    }
+
+    .closing-date {
+      font-size: clamp(0.6rem, 1.5vw, 0.7rem);
+      letter-spacing: 0.3em;
+      color: var(--gold-dark);
+      margin-top: 14px;
+    }
+
+    /* ── Ornament SVG reusable ── */
+    .ornament-tl {
+      top: 16px;
+      left: 16px;
+    }
+
+    .ornament-tr {
+      top: 16px;
+      right: 16px;
+      transform: scaleX(-1);
+    }
+
+    .ornament-bl {
+      bottom: 16px;
+      left: 16px;
+      transform: scaleY(-1);
+    }
+
+    .ornament-br {
+      bottom: 16px;
+      right: 16px;
+      transform: scale(-1);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .nav-dots {
+        right: 10px;
+      }
+
+      .countdown-boxes {
+        gap: 8px;
+      }
+
+      .countdown-box {
+        min-width: 58px;
+        padding: 12px 8px;
+      }
+
+      .countdown-num {
+        font-size: 1.8rem;
+      }
+
+      .colon {
+        font-size: 1.4rem;
+      }
+
+      .ceremony-box {
+        padding: 24px 18px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .countdown-num {
+        font-size: 1.5rem;
+      }
+
+      .countdown-box {
+        min-width: 50px;
+        padding: 10px 6px;
+      }
+
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Nav dots -->
+  <nav class="nav-dots" aria-label="Page navigation" id="navDots"></nav>
+
+  <div class="slide-container" id="slideContainer">
+
+    <!-- ═══ SLIDE 1: WELCOME ═══ -->
+    <div class="slide slide-welcome" data-slide="0">
+      <!-- Petals -->
+      <div class="petal" style="left:10%;top:15%;width:20px;height:20px;animation-delay:0s;animation-duration:6s;">
+      </div>
+      <div class="petal"
+        style="left:80%;top:20%;width:15px;height:15px;animation-delay:-2s;animation-duration:7s;transform:rotate(40deg)">
+      </div>
+      <div class="petal"
+        style="left:60%;top:70%;width:18px;height:18px;animation-delay:-4s;animation-duration:5.5s;transform:rotate(80deg)">
+      </div>
+      <div class="petal"
+        style="left:25%;top:75%;width:12px;height:12px;animation-delay:-1s;animation-duration:8s;transform:rotate(120deg)">
+      </div>
+      <div class="petal"
+        style="left:90%;top:60%;width:16px;height:16px;animation-delay:-3s;animation-duration:6.5s;transform:rotate(160deg)">
+      </div>
+      <div class="petal"
+        style="left:45%;top:10%;width:14px;height:14px;animation-delay:-5s;animation-duration:7.5s;transform:rotate(200deg)">
+      </div>
+
+      <!-- Corner ornaments -->
+      <div class="corner ornament-tl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-tr"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-bl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-br"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+
+      <!-- Couple silhouette -->
+      <div class="silhouette-wrap" aria-hidden="true">
+        <svg viewBox="0 0 260 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="90" cy="38" r="18" fill="#FAF6EF" />
+          <path d="M62 220 C62 160 118 160 118 220" fill="#FAF6EF" />
+          <rect x="72" y="56" width="36" height="50" rx="2" fill="#FAF6EF" />
+          <path d="M90 60 L78 80 L90 85 L102 80 Z" fill="#FAF6EF" opacity="0.8" />
+          <path d="M108 80 Q130 90 140 110" stroke="#FAF6EF" stroke-width="10" stroke-linecap="round" fill="none" />
+          <circle cx="170" cy="38" r="18" fill="#FAF6EF" />
+          <path d="M155 20 Q170 10 185 20 Q195 60 200 90" fill="#FAF6EF" opacity="0.4" />
+          <path d="M155 20 Q145 60 145 90" fill="#FAF6EF" opacity="0.4" />
+          <path d="M145 56 L145 120 Q157 130 170 132 Q183 130 195 120 L195 56 Z" fill="#FAF6EF" />
+          <path d="M140 115 Q130 180 125 220 L215 220 Q210 180 200 115 Z" fill="#FAF6EF" />
+          <path d="M145 80 Q130 90 120 110" stroke="#FAF6EF" stroke-width="8" stroke-linecap="round" fill="none" />
+          <circle cx="115" cy="115" r="12" fill="#FAF6EF" opacity="0.7" />
+        </svg>
+      </div>
+
+      <div class="welcome-content">
+        <p class="font-display tagline anim">✦ CORDIALLY INVITE YOU TO ✦</p>
+        <h1 class="font-display anim d2">WEDDING</h1>
+        <div class="anim d3" style="margin-bottom:20px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#DFC090"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <div class="names">
+          <h2 class="font-script anim d4">Shamis</h2>
+          <span class="font-serif amp anim d5">&amp;</span>
+          <h2 class="font-script anim d6">Safana</h2>
+        </div>
+        <div class="anim d6" style="margin:28px 0">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#DFC090"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <p class="font-display date-line anim d8">JULY 23, 2026</p>
+      </div>
+
+      <div class="scroll-hint" onclick="goToSlide(1)" aria-label="Scroll down">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M12 5 L12 19 M6 13 L12 19 L18 13" stroke="rgba(200,169,110,0.7)" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 2: INVITATION ═══ -->
+    <div class="slide slide-invitation" data-slide="1">
+      <div
+        style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:1">
+        <div
+          style="width:min(70vw,500px);height:min(70vw,500px);border-radius:50%;border:1px solid rgba(139,36,56,0.1);box-shadow:0 0 0 20px rgba(139,36,56,0.04),0 0 0 40px rgba(139,36,56,0.02)">
+        </div>
+      </div>
+      <div class="invitation-card">
+        <p class="font-serif invite-text anim">Together with our families,<br />we joyfully invite you to
+          celebrate<br />the wedding of</p>
+        <h2 class="font-script anim d2">Shamis</h2>
+        <span class="font-serif amp2 anim d3">&amp;</span>
+        <h2 class="font-script anim d4">Safana</h2>
+        <div class="anim d5" style="margin:28px 0">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#C8A96E"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <p class="font-display ceremony-date anim d5">THURSDAY, JULY 23, 2026</p>
+        <p class="font-serif hijri anim d6">Safar 08, 1448</p>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 3: CEREMONY ═══ -->
+    <div class="slide slide-ceremony" data-slide="2">
+      <div class="petal" style="left:10%;top:15%;width:20px;height:20px;animation-delay:0s;animation-duration:6s;">
+      </div>
+      <div class="petal"
+        style="left:80%;top:20%;width:15px;height:15px;animation-delay:-2s;animation-duration:7s;transform:rotate(40deg)">
+      </div>
+      <div class="petal" style="left:60%;top:70%;width:18px;height:18px;animation-delay:-4s;animation-duration:5.5s;">
+      </div>
+
+      <div class="corner ornament-tl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-tr"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-bl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-br"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+
+      <div class="ceremony-box">
+        <!-- Corner ornaments inside card -->
+        <div style="position:absolute;top:-1px;left:-1px"><svg width="56" height="56" viewBox="0 0 80 80" fill="none">
+            <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          </svg></div>
+        <div style="position:absolute;top:-1px;right:-1px;transform:scaleX(-1)"><svg width="56" height="56"
+            viewBox="0 0 80 80" fill="none">
+            <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          </svg></div>
+        <div style="position:absolute;bottom:-1px;left:-1px;transform:scaleY(-1)"><svg width="56" height="56"
+            viewBox="0 0 80 80" fill="none">
+            <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          </svg></div>
+        <div style="position:absolute;bottom:-1px;right:-1px;transform:scale(-1)"><svg width="56" height="56"
+            viewBox="0 0 80 80" fill="none">
+            <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+            <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          </svg></div>
+
+        <p class="font-display invite-badge anim">✦ YOU ARE INVITED ✦</p>
+        <h2 class="font-display anim d1">WEDDING CEREMONY</h2>
+        <div class="anim d2" style="margin-bottom:28px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#C8A96E"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <p class="font-display date-display anim d3">Thursday, July 23, 2026</p>
+        <p class="font-serif hijri2 anim d4">Safar 08, 1448</p>
+        <div class="anim-scale d4 time-badge">
+          <span>12:00 PM – 12:30 PM</span>
+        </div>
+        <div class="anim d5" style="margin-bottom:20px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#C8A96E"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="margin-bottom:6px">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#C8A96E"
+              opacity="0.7" />
+            <circle cx="12" cy="9" r="2.5" fill="white" />
+          </svg>
+          <p class="font-display venue-name anim d5">Royal Auditorium</p>
+          <p class="font-serif venue-sub anim d6">Ayathil, Kollam</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 4: COUNTDOWN ═══ -->
+    <div class="slide slide-countdown" data-slide="3">
+      <div class="petal" style="left:10%;top:15%;width:20px;height:20px;animation-delay:0s;animation-duration:6s;">
+      </div>
+      <div class="petal" style="left:80%;top:20%;width:15px;height:15px;animation-delay:-2s;animation-duration:7s;">
+      </div>
+      <div class="petal" style="left:45%;top:10%;width:14px;height:14px;animation-delay:-5s;animation-duration:7.5s;">
+      </div>
+
+      <div class="corner ornament-tl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-tr"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-bl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-br"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+
+      <div class="countdown-wrap">
+        <p class="font-display section-tag anim">✦ COUNTING THE MOMENTS ✦</p>
+        <h2 class="font-display anim d1">WEDDING COUNTDOWN</h2>
+        <p class="font-serif subtitle anim d2">July 23, 2026 · 12:00 PM IST</p>
+
+        <div class="countdown-boxes anim-scale d3">
+          <div class="countdown-unit">
+            <div class="countdown-box">
+              <div class="countdown-num" id="cd-days">00</div>
+              <div class="countdown-label">Days</div>
+            </div>
+            <span class="colon">:</span>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-box">
+              <div class="countdown-num" id="cd-hours">00</div>
+              <div class="countdown-label">Hours</div>
+            </div>
+            <span class="colon">:</span>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-box">
+              <div class="countdown-num" id="cd-minutes">00</div>
+              <div class="countdown-label">Minutes</div>
+            </div>
+            <span class="colon">:</span>
+          </div>
+          <div class="countdown-unit">
+            <div class="countdown-box">
+              <div class="countdown-num" id="cd-seconds">00</div>
+              <div class="countdown-label">Seconds</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- shown after timer ends -->
+        <p class="celebration-msg" id="celebration-msg" style="display:none;">It's Our Wedding Day! 🎉</p>
+
+        <div style="margin-bottom:28px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#DFC090"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <p class="font-display anim d4"
+          style="font-size:clamp(0.6rem,1.5vw,0.72rem);letter-spacing:0.3em;color:var(--gold);margin-bottom:14px">A NOTE
+          FOR YOU</p>
+        <p class="font-serif note-text anim d5">"Together with our families, we joyfully invite you to witness the union
+          of two souls and celebrate with us on our wedding day."</p>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 5: OUR STORY ═══ -->
+    <div class="slide slide-story" data-slide="4">
+      <div class="petal" style="left:10%;top:15%;width:20px;height:20px;animation-delay:0s;animation-duration:6s;">
+      </div>
+      <div class="petal" style="left:80%;top:20%;width:15px;height:15px;animation-delay:-2s;animation-duration:7s;">
+      </div>
+
+      <div class="corner ornament-tl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-tr"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <ellipse cx="40" cy="33" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="40" cy="47" rx="2.5" ry="4" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="33" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <ellipse cx="47" cy="40" rx="4" ry="2.5" fill="#C8A96E" opacity="0.3" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-bl"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-br"><svg width="90" height="90" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#C8A96E" stroke-width="0.6" fill="none" opacity="0.7" />
+          <ellipse cx="12" cy="20" rx="4" ry="8" transform="rotate(-30 12 20)" fill="#C8A96E" opacity="0.25" />
+          <ellipse cx="20" cy="12" rx="4" ry="8" transform="rotate(60 20 12)" fill="#C8A96E" opacity="0.25" />
+          <circle cx="40" cy="40" r="4" fill="#C8A96E" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#C8A96E" opacity="0.4" />
+        </svg></div>
+
+      <div class="big-quote" style="top:10%;left:5%">"</div>
+      <div class="big-quote" style="bottom:8%;right:5%">"</div>
+
+      <div class="story-wrap">
+        <div style="display:flex;justify-content:center;gap:12px;align-items:center;margin:0 auto 28px">
+          <div style="width:40px;height:1px;background:var(--gold)"></div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--gold)">
+            <path d="M8 0 L9.5 6 L16 8 L9.5 10 L8 16 L6.5 10 L0 8 L6.5 6 Z" />
+          </svg>
+          <div style="width:40px;height:1px;background:var(--gold)"></div>
+        </div>
+        <p class="font-display section-tag anim">✦ OUR STORY ✦</p>
+        <h2 class="font-display anim d1">OUR STORY</h2>
+        <div class="anim d2" style="margin-bottom:32px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#DFC090"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <p class="font-serif story-text anim d3">"In a world full of fleeting moments, they found something timeless in
+          each other. Their story is woven with smiles, late-night talks, shared dreams, and countless memories that
+          brought two souls closer every single day."</p>
+        <div class="anim d4" style="margin-top:36px;margin-bottom:28px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#DFC090"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+        <div class="story-names anim d5">
+          <h3>Shamis</h3>
+          <span class="story-amp">&amp;</span>
+          <h3>Safana</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 6: VENUE ═══ -->
+    <div class="slide slide-venue" data-slide="5">
+      <div class="corner ornament-tl"><svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <circle cx="40" cy="40" r="4" fill="#8B2438" opacity="0.5" />
+          <circle cx="8" cy="8" r="2" fill="#8B2438" opacity="0.4" />
+        </svg></div>
+      <div class="corner ornament-tr"><svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <circle cx="40" cy="40" r="4" fill="#8B2438" opacity="0.5" />
+        </svg></div>
+      <div class="corner ornament-bl"><svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <circle cx="40" cy="40" r="4" fill="#8B2438" opacity="0.5" />
+        </svg></div>
+      <div class="corner ornament-br"><svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <path d="M4 4 Q4 40 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <path d="M4 4 Q40 4 40 40" stroke="#8B2438" stroke-width="0.6" fill="none" opacity="0.7" />
+          <circle cx="40" cy="40" r="4" fill="#8B2438" opacity="0.5" />
+        </svg></div>
+
+      <div class="venue-wrap">
+        <p class="font-display section-tag anim">✦ FIND US ✦</p>
+        <h2 class="font-display anim d1">FIND US</h2>
+        <div class="anim d2" style="margin-bottom:28px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#C8A96E"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+
+        <div class="anim-scale d2 venue-card">
+          <!-- inner corner ornaments -->
+          <div style="position:absolute;top:-1px;left:-1px"><svg width="40" height="40" viewBox="0 0 80 80" fill="none">
+              <path d="M4 4 Q4 40 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+              <path d="M4 4 Q40 4 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+            </svg></div>
+          <div style="position:absolute;top:-1px;right:-1px;transform:scaleX(-1)"><svg width="40" height="40"
+              viewBox="0 0 80 80" fill="none">
+              <path d="M4 4 Q4 40 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+              <path d="M4 4 Q40 4 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+            </svg></div>
+          <div style="position:absolute;bottom:-1px;left:-1px;transform:scaleY(-1)"><svg width="40" height="40"
+              viewBox="0 0 80 80" fill="none">
+              <path d="M4 4 Q4 40 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+              <path d="M4 4 Q40 4 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+            </svg></div>
+          <div style="position:absolute;bottom:-1px;right:-1px;transform:scale(-1)"><svg width="40" height="40"
+              viewBox="0 0 80 80" fill="none">
+              <path d="M4 4 Q4 40 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+              <path d="M4 4 Q40 4 40 40" stroke="#DFC090" stroke-width="0.6" fill="none" opacity="0.7" />
+            </svg></div>
+
+          <p class="font-display venue-title">Royal Auditorium</p>
+          <p class="font-serif venue-city">Ayathil, Kollam, Kerala</p>
+          <p class="font-display venue-dt">Thursday, July 23, 2026 · 12:00 PM</p>
+        </div>
+
+        <div class="anim d4" style="margin-bottom:32px">
+          <a href="https://www.google.com/maps/search/Royal+Auditorium+Ayathil+Kollam+Kerala" target="_blank"
+            rel="noopener noreferrer" class="map-btn font-display">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"
+                opacity="0.8" />
+              <circle cx="12" cy="9" r="2.5" fill="white" />
+            </svg>
+            Get Directions
+          </a>
+        </div>
+
+        <div class="anim d5" style="margin-bottom:24px">
+          <div class="divider">
+            <div class="divider-line-l"></div><svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L11.5 8.5 L18 10 L11.5 11.5 L10 18 L8.5 11.5 L2 10 L8.5 8.5 Z" fill="#C8A96E"
+                opacity="0.8" />
+            </svg>
+            <div class="divider-line-r"></div>
+          </div>
+        </div>
+
+        <p class="font-serif thank-you anim d6">Thank You For Being Part Of Our Special Day</p>
+        <h3 class="font-script closing-names anim d8">Shamis &amp; Safana</h3>
+        <p class="font-display closing-date anim d8">JULY 23, 2026 · SAFAR 08, 1448</p>
+      </div>
+    </div>
+
+  </div><!-- end slide-container -->
+
+  <!-- ── Background Music ── -->
+  <audio id="bgMusic" loop>
+    <source src="Saiyaara_Reprise_Female_Saiyaara_320_Kbps.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ── Music Toggle Button ── -->
+  <button id="musicBtn" aria-label="Toggle music" title="Toggle music" style="
+    position: fixed;
+    bottom: 28px;
+    left: 24px;
+    z-index: 200;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    background: rgba(74, 15, 28, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35), 0 0 0 0 rgba(200,169,110,0.4);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    padding: 0;
+  ">
+    <!-- Sound ON icon -->
+    <svg id="iconOn" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:none">
+      <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#C8A96E"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <!-- Sound OFF / muted icon -->
+    <svg id="iconOff" width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#C8A96E" opacity="0.5"/>
+      <line x1="23" y1="9" x2="17" y2="15" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="17" y1="9" x2="23" y2="15" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- Pulse ring animation for music button -->
+  <style>
+    @keyframes music-pulse {
+      0%   { box-shadow: 0 4px 18px rgba(0,0,0,0.35), 0 0 0 0 rgba(200,169,110,0.5); }
+      70%  { box-shadow: 0 4px 18px rgba(0,0,0,0.35), 0 0 0 10px rgba(200,169,110,0); }
+      100% { box-shadow: 0 4px 18px rgba(0,0,0,0.35), 0 0 0 0 rgba(200,169,110,0); }
+    }
+    #musicBtn.playing {
+      animation: music-pulse 2s ease-in-out infinite;
+    }
+    #musicBtn:hover { transform: scale(1.1); }
+  </style>
+
+  <script>
+    // ── Background Music ──
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    const iconOn = document.getElementById('iconOn');
+    const iconOff = document.getElementById('iconOff');
+
+    // Start muted so browser allows autoplay; user clicks to unmute
+    music.volume = 0.5;
+    music.muted = true;
+
+    // Try autoplay (muted) as soon as possible
+    music.play().catch(() => {});
+
+    // Unmute on first user interaction with the page
+    let userInteracted = false;
+    function handleFirstInteraction() {
+      if (!userInteracted) {
+        userInteracted = true;
+        music.muted = false;
+        music.play().catch(() => {});
+        iconOn.style.display = 'block';
+        iconOff.style.display = 'none';
+        musicBtn.classList.add('playing');
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('touchstart', handleFirstInteraction);
+        document.removeEventListener('keydown', handleFirstInteraction);
+        document.removeEventListener('scroll', handleFirstInteraction, true);
+      }
+    }
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
+    document.addEventListener('keydown', handleFirstInteraction);
+    document.addEventListener('scroll', handleFirstInteraction, true);
+
+    // Toggle mute/unmute on button click
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // don't trigger handleFirstInteraction again
+      if (!userInteracted) {
+        // First click on button — unmute
+        userInteracted = true;
+        music.muted = false;
+        music.play().catch(() => {});
+        iconOn.style.display = 'block';
+        iconOff.style.display = 'none';
+        musicBtn.classList.add('playing');
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('touchstart', handleFirstInteraction);
+        document.removeEventListener('keydown', handleFirstInteraction);
+        document.removeEventListener('scroll', handleFirstInteraction, true);
+      } else {
+        // Subsequent clicks — toggle
+        if (music.muted || music.paused) {
+          music.muted = false;
+          music.play().catch(() => {});
+          iconOn.style.display = 'block';
+          iconOff.style.display = 'none';
+          musicBtn.classList.add('playing');
+        } else {
+          music.muted = true;
+          iconOn.style.display = 'none';
+          iconOff.style.display = 'block';
+          musicBtn.classList.remove('playing');
+        }
+      }
+    });
+  </script>
+
+  <script>
+    // ── Nav dots setup ──
+    const slides = document.querySelectorAll('.slide');
+    const navDotsContainer = document.getElementById('navDots');
+    const container = document.getElementById('slideContainer');
+
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      btn.addEventListener('click', () => goToSlide(i));
+      navDotsContainer.appendChild(btn);
+    });
+
+    function goToSlide(index) {
+      const slideEl = slides[index];
+      slideEl.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update active dot on scroll
+    const dotButtons = navDotsContainer.querySelectorAll('.nav-dot');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(slides).indexOf(entry.target);
+          dotButtons.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+      });
+    }, { root: container, threshold: 0.5 });
+    slides.forEach(s => observer.observe(s));
+
+    // ── Countdown Timer ──
+    // Target: Thursday, July 23, 2026, 12:00 PM IST (UTC+5:30)
+    const weddingDate = new Date('2026-07-23T12:00:00+05:30');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = weddingDate - now;
+
+      const daysEl = document.getElementById('cd-days');
+      const hoursEl = document.getElementById('cd-hours');
+      const minsEl = document.getElementById('cd-minutes');
+      const secsEl = document.getElementById('cd-seconds');
+      const celebEl = document.getElementById('celebration-msg');
+
+      if (diff <= 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minsEl.textContent = '00';
+        secsEl.textContent = '00';
+        celebEl.style.display = 'block';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minsEl.textContent = pad(minutes);
+      secsEl.textContent = pad(seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+
+</html>
